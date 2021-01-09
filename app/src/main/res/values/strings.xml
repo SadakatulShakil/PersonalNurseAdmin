@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PersonalNurseAdmin</string>
+
+    <string name="drawer_closed">drawer_closed</string>
+    <string name="drawer_open">drawer_open</string>
+    <string name="deliver">Delivered Orders <br /> today</string>
+
+</resources>

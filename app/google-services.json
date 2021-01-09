@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "19429523368",
+    "project_id": "personal-nurse",
+    "storage_bucket": "personal-nurse.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19429523368:android:e57d3ef27c75507136e79d",
+        "android_client_info": {
+          "package_name": "com.astronist.personalnurse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19429523368-ii879vrq9qqbas3iipo0bvbm0vdbosco.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.astronist.personalnurse",
+            "certificate_hash": "7bda066301674c5f84a66711e05b6f57389825a1"
+          }
+        },
+        {
+          "client_id": "19429523368-11l08t1n9t7q561ke1g4bgi1ptk07tv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlRDQ3IVlou1A4GmKzjKXTomDB_jZdVVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19429523368-11l08t1n9t7q561ke1g4bgi1ptk07tv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19429523368:android:7ff79d4ec907d3aa36e79d",
+        "android_client_info": {
+          "package_name": "com.astronist.personalnurseadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19429523368-11l08t1n9t7q561ke1g4bgi1ptk07tv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlRDQ3IVlou1A4GmKzjKXTomDB_jZdVVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19429523368-11l08t1n9t7q561ke1g4bgi1ptk07tv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
