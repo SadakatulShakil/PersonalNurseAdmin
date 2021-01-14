@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar dToolbar;
     FirebaseAuth firebaseAuth;
     private ConstraintLayout uploadbtn;
+    private CardView unsolvedPresCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent upload = new Intent(MainActivity.this, UploadProductActivity.class);
                 startActivity(upload);
+            }
+        });
+
+        unsolvedPresCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inten = new Intent(MainActivity.this, UnsolvedPrescriptionActivity.class);
+                startActivity(inten);
             }
         });
 
@@ -101,5 +111,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationDrawer);
         dToolbar = findViewById(R.id.toolbar);
         uploadbtn = findViewById(R.id.upload);
+        unsolvedPresCard = findViewById(R.id.unsolvedPrescribeLayout);
     }
 }

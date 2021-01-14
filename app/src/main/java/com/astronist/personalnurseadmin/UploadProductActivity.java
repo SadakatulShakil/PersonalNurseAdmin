@@ -238,9 +238,8 @@ public class UploadProductActivity extends AppCompatActivity {
 
     private void inItSubCategoryList3() {
         mSubCategoryList3.add(new SubCategory("Select Sub Category"));
-        mSubCategoryList3.add(new SubCategory("Protein"));
-        mSubCategoryList3.add(new SubCategory("Fat"));
-        mSubCategoryList3.add(new SubCategory("Vitamins"));
+        mSubCategoryList3.add(new SubCategory("Baby Milk"));
+        mSubCategoryList3.add(new SubCategory("Chocolate"));
     }
 
     private void inItView() {

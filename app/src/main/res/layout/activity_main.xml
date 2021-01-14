@@ -293,7 +293,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/totalRevenueLayout"
+                android:id="@+id/unsolvedPrescribeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_margin="5dp"
@@ -311,7 +311,7 @@
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total item Store"
+                        android:text="Unsloved Prescribe"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_marginTop="8dp"
@@ -348,7 +348,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/totalItemLayout"
+                android:id="@+id/solvedPrescribeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_margin="5dp"
@@ -366,7 +366,7 @@
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total active User"
+                        android:text="Solved Prescribe"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_marginTop="8dp"

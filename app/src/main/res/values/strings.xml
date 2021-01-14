@@ -5,4 +5,6 @@
     <string name="drawer_open">drawer_open</string>
     <string name="deliver">Delivered Orders <br /> today</string>
 
+    <string name="medicine_list">1.Napa extra-1piece-2 taka-(3*2) = 6 taka\n2.Peracitamal extra-1piece-2 taka-(2*2) = 4 taka</string>
+
 </resources>
