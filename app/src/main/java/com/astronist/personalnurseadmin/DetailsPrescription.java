@@ -35,7 +35,7 @@ public class DetailsPrescription extends AppCompatActivity {
     private PrescriptionInfo prescriptionInfo;
     private String addingTime, addingDate;
     private DatabaseReference mDatabaseRef;
-    public static final String TAG = "details";
+    public static final String TAG = "detailsPrescription";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
