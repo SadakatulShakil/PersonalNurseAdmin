@@ -14,6 +14,8 @@ import com.astronist.personalnurseadmin.Adapter.PrescriptionAdapter;
 import com.astronist.personalnurseadmin.Adapter.ProductAdapter;
 import com.astronist.personalnurseadmin.Model.PrescriptionInfo;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +33,9 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
     private DatabaseReference prescribeRef;
     private ExtendedFloatingActionButton allopathicBtn, homeopathicBtn;
     private ProgressBar progressBar;
+    private FirebaseUser user;
+    private FirebaseAuth firebaseAuth;
+    private String userId;
 
     public static final String TAG = "Product";
 
@@ -39,6 +44,8 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unsolved_prescription);
         inItView();
+        firebaseAuth = FirebaseAuth.getInstance();
+        //userId = firebaseAuth.getCurrentUser().getUid();
 
         progressBar.setVisibility(View.VISIBLE);
         allopathicRecyclerView.setLayoutManager(new LinearLayoutManager(UnsolvedPrescriptionActivity.this));
@@ -74,7 +81,8 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
 
     private void getHomeopathicList() {
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-        prescribeRef = fdb.getReference("PrescriptionInfo").child("homeo");
+        prescribeRef = fdb.getReference("PrescriptionInfo");
+
 
         prescribeRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,8 +92,11 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
 
                     PrescriptionInfo prescriptionInfo = productSnap.getValue(PrescriptionInfo.class);
 
-                        mHomeoInfoList.add(prescriptionInfo);
-                        progressBar.setVisibility(View.GONE);
+                        if(prescriptionInfo.getUserId().equals("IypDrs1vnGQlYQUxSMarAO4QISE2") && prescriptionInfo.getType().equals("homeo")){
+
+                            mHomeoInfoList.add(prescriptionInfo);
+                            progressBar.setVisibility(View.GONE);
+                        }
 
 
                 }
@@ -105,7 +116,7 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
 
     private void getAllopathicList() {
         FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-        prescribeRef = fdb.getReference("PrescriptionInfo").child("allo");
+        prescribeRef = fdb.getReference("PrescriptionInfo");
 
         prescribeRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -114,10 +125,10 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
                 for (DataSnapshot productSnap : snapshot.getChildren()) {
 
                     PrescriptionInfo prescriptionInfo = productSnap.getValue(PrescriptionInfo.class);
-
-                    mAlloInfoList.add(prescriptionInfo);
-                    progressBar.setVisibility(View.GONE);
-
+                    if(prescriptionInfo.getUserId().equals("IypDrs1vnGQlYQUxSMarAO4QISE2") && prescriptionInfo.getType().equals("allo")) {
+                        mAlloInfoList.add(prescriptionInfo);
+                        progressBar.setVisibility(View.GONE);
+                    }
 
                 }
                 Log.d(TAG, "onDataChange: " + mAlloInfoList.size());

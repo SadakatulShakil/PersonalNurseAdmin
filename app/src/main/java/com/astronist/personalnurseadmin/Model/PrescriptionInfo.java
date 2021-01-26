@@ -8,16 +8,18 @@ public class PrescriptionInfo implements Serializable {
     private String prescriptionUrl;
     private String date;
     private String time;
+    private String type;
 
     public PrescriptionInfo() {
     }
 
-    public PrescriptionInfo(String userId, String pushId, String prescriptionUrl, String date, String time) {
+    public PrescriptionInfo(String userId, String pushId, String prescriptionUrl, String date, String time, String type) {
         this.userId = userId;
         this.pushId = pushId;
         this.prescriptionUrl = prescriptionUrl;
         this.date = date;
         this.time = time;
+        this.type = type;
     }
 
     public String getUserId() {
@@ -60,6 +62,14 @@ public class PrescriptionInfo implements Serializable {
         this.time = time;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "PrescriptionInfo{" +
@@ -68,9 +78,7 @@ public class PrescriptionInfo implements Serializable {
                 ", prescriptionUrl='" + prescriptionUrl + '\'' +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
+                ", type='" + type + '\'' +
                 '}';
-    }
-
-    public class viewHolder {
     }
 }
