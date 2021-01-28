@@ -9,17 +9,19 @@ public class PrescriptionInfo implements Serializable {
     private String date;
     private String time;
     private String type;
+    private String status;
 
     public PrescriptionInfo() {
     }
 
-    public PrescriptionInfo(String userId, String pushId, String prescriptionUrl, String date, String time, String type) {
+    public PrescriptionInfo(String userId, String pushId, String prescriptionUrl, String date, String time, String type, String status) {
         this.userId = userId;
         this.pushId = pushId;
         this.prescriptionUrl = prescriptionUrl;
         this.date = date;
         this.time = time;
         this.type = type;
+        this.status = status;
     }
 
     public String getUserId() {
@@ -70,6 +72,14 @@ public class PrescriptionInfo implements Serializable {
         this.type = type;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "PrescriptionInfo{" +
@@ -79,6 +89,7 @@ public class PrescriptionInfo implements Serializable {
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

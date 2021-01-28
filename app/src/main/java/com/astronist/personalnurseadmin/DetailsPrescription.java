@@ -18,13 +18,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class DetailsPrescription extends AppCompatActivity {
 
@@ -35,6 +40,8 @@ public class DetailsPrescription extends AppCompatActivity {
     private PrescriptionInfo prescriptionInfo;
     private String addingTime, addingDate;
     private DatabaseReference mDatabaseRef;
+    private DatabaseReference mUpdateRef;
+    private String pushId,userId;
     public static final String TAG = "detailsPrescription";
 
     @Override
@@ -45,11 +52,15 @@ public class DetailsPrescription extends AppCompatActivity {
 
         Intent intent = getIntent();
         prescriptionInfo = (PrescriptionInfo) intent.getSerializableExtra("prescription_info");
+        pushId = prescriptionInfo.getPushId();
+        userId = prescriptionInfo.getUserId();
+
 
         Picasso.get().load(prescriptionInfo.getPrescriptionUrl()).into(previewPrescription);
         Picasso.get().load(prescriptionInfo.getPrescriptionUrl()).into(mainPrescription);
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("OfferedPrice");
+        mUpdateRef = FirebaseDatabase.getInstance().getReference("PrescriptionInfo");
 
         previewPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +91,16 @@ public class DetailsPrescription extends AppCompatActivity {
     }
 
     private void removeFromUnsolved() {
+        HashMap hashMap = new HashMap();
+        hashMap.put("status", "Solved");
+       mUpdateRef.child(userId).child(pushId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+           @Override
+           public void onComplete(@NonNull Task<Void> task) {
+            if(task.isSuccessful()){
+                Toast.makeText(DetailsPrescription.this, "Data going to solved section !", Toast.LENGTH_SHORT).show();
+            }
+           }
+       });
 
     }
 
@@ -87,9 +108,9 @@ public class DetailsPrescription extends AppCompatActivity {
 
         String uMedicine = medicineList.getText().toString().trim();
         String uOneDayPrice = oneDayPrice.getText().toString().trim();
-        int oneWeak = (Integer.parseInt(uOneDayPrice))*7;
-        int fifteen = (Integer.parseInt(uOneDayPrice))*15;
-        int oneMonth = (Integer.parseInt(uOneDayPrice))*30;
+        int oneWeak = (Integer.parseInt(uOneDayPrice)) * 7;
+        int fifteen = (Integer.parseInt(uOneDayPrice)) * 15;
+        int oneMonth = (Integer.parseInt(uOneDayPrice)) * 30;
         String uOneWeakPrice = String.valueOf(oneWeak);
         String uFifteenDaysPrice = String.valueOf(fifteen);
         String uOneMonthPrice = String.valueOf(oneMonth);
@@ -107,12 +128,11 @@ public class DetailsPrescription extends AppCompatActivity {
     private void finalStep(final String userId, final String uMedicine, final String uOneDayPrice, final String uOneWeakPrice,
                            final String uFifteenDaysPrice, final String uOneMonthPrice, final String addingTime, final String addingDate) {
 
-            String pushId = mDatabaseRef.push().getKey();
         PriceOffer priceOffer = new PriceOffer(userId, pushId, uMedicine, uOneDayPrice, uOneWeakPrice, uFifteenDaysPrice, uOneMonthPrice, addingDate, addingTime);
         mDatabaseRef.child(pushId).setValue(priceOffer).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     finish();
                     Toast.makeText(DetailsPrescription.this, "Info Upload Successful!", Toast.LENGTH_SHORT).show();
                     Intent infoProduct = new Intent(DetailsPrescription.this, MainActivity.class);
@@ -122,7 +142,7 @@ public class DetailsPrescription extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: " +e.getMessage());
+                Log.d(TAG, "onFailure: " + e.getMessage());
             }
         });
 
