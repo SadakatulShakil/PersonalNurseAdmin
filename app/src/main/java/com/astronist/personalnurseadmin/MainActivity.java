@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar dToolbar;
     FirebaseAuth firebaseAuth;
     private ConstraintLayout uploadbtn;
-    private CardView unsolvedPresCard;
+    private CardView unsolvedPresCard, solvedPresCard, medicineOrderCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent inten = new Intent(MainActivity.this, UnsolvedPrescriptionActivity.class);
+                startActivity(inten);
+            }
+        });
+
+        solvedPresCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inten = new Intent(MainActivity.this, SolvedPrescriptionActivity.class);
+                startActivity(inten);
+            }
+        });
+
+        medicineOrderCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent inten = new Intent(MainActivity.this, NewMedicineOrderActivity.class);
                 startActivity(inten);
             }
         });
@@ -112,5 +128,7 @@ public class MainActivity extends AppCompatActivity {
         dToolbar = findViewById(R.id.toolbar);
         uploadbtn = findViewById(R.id.upload);
         unsolvedPresCard = findViewById(R.id.unsolvedPrescribeLayout);
+        solvedPresCard = findViewById(R.id.solvedPrescribeLayout);
+        medicineOrderCard = findViewById(R.id.newMedicineOrderLayout);
     }
 }

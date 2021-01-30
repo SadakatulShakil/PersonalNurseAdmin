@@ -36,7 +36,7 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
-    private String userId;
+    private String userId, status;
 
     public static final String TAG = "Product";
 
@@ -50,7 +50,7 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         allopathicRecyclerView.setLayoutManager(new LinearLayoutManager(UnsolvedPrescriptionActivity.this));
-        mPrescribeAdapter = new PrescriptionAdapter(mAlloInfoList, UnsolvedPrescriptionActivity.this);
+        mPrescribeAdapter = new PrescriptionAdapter(mAlloInfoList, UnsolvedPrescriptionActivity.this, status);
         allopathicRecyclerView.setAdapter(mPrescribeAdapter);
         mPrescribeAdapter.notifyDataSetChanged();
 
@@ -82,6 +82,7 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
                                 PrescriptionInfo prescriptionInfo = productSnap.getValue(PrescriptionInfo.class);
 
                                 Log.d(TAG, "onData: " + prescriptionInfo.toString());
+                                status = prescriptionInfo.getStatus();
                                 if(prescriptionInfo.getStatus().equals("unsolved")){
 
                                     mAlloInfoList.add(prescriptionInfo);

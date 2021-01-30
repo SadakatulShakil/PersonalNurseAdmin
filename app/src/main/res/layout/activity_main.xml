@@ -51,7 +51,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/newOrderLayout"
+                android:id="@+id/newMedicineOrderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_margin="5dp"
@@ -69,7 +69,7 @@
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="New Orders"
+                        android:text="Medicine Orders"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_marginTop="8dp"
@@ -190,7 +190,7 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pending Order"
+                        android:text="Daily Order"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_marginTop="8dp"
@@ -245,7 +245,7 @@
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Revenue"
+                        android:text="Connect Sales"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/black"
                         android:layout_marginTop="8dp"

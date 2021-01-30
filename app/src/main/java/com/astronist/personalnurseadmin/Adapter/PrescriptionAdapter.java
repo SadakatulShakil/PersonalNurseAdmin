@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.astronist.personalnurseadmin.CheckingSolvedPrescription;
 import com.astronist.personalnurseadmin.DetailsPrescription;
 import com.astronist.personalnurseadmin.Model.PrescriptionInfo;
 import com.astronist.personalnurseadmin.R;
@@ -19,10 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapter.viewHolder>{
     private ArrayList<PrescriptionInfo> prescriptionInfoArrayList;
     private Context context;
+    private String status;
 
-    public PrescriptionAdapter(ArrayList<PrescriptionInfo> prescriptionInfoArrayList, Context context) {
+    public PrescriptionAdapter(ArrayList<PrescriptionInfo> prescriptionInfoArrayList, Context context, String status) {
         this.prescriptionInfoArrayList = prescriptionInfoArrayList;
         this.context = context;
+        this.status = status;
     }
 
     @NonNull
@@ -42,14 +45,28 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
         holder.time.setText(uTime);
         holder.date.setText(uDate);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsPrescription.class);
-                intent.putExtra("prescription_info", prescriptionInfo);
-                context.startActivity(intent);
-            }
-        });
+        if(status.equals("Solved")){
+            ////do if solved
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, CheckingSolvedPrescription.class);
+                    intent.putExtra("prescription_info", prescriptionInfo);
+                    context.startActivity(intent);
+                }
+            });
+        }
+        if(status.equals("unsolved")){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DetailsPrescription.class);
+                    intent.putExtra("prescription_info", prescriptionInfo);
+                    context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
     @Override

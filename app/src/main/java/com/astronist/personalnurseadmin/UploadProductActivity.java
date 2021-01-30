@@ -58,6 +58,7 @@ public class UploadProductActivity extends AppCompatActivity {
     private ArrayList<SubCategory> mSubCategoryList1 = new ArrayList<>();
     private ArrayList<SubCategory> mSubCategoryList2 = new ArrayList<>();
     private ArrayList<SubCategory> mSubCategoryList3 = new ArrayList<>();
+    private ArrayList<SubCategory> mSubCategoryList4 = new ArrayList<>();
     private SubcategoryAdapter mSubCategoryAdapter;
     private String categoryName, subCategoryName;
     private ImageView previewImage;
@@ -76,6 +77,7 @@ public class UploadProductActivity extends AppCompatActivity {
         inItSubCategoryList1();
         inItSubCategoryList2();
         inItSubCategoryList3();
+        inItSubCategoryList4();
         inItView();
 
         mStorageRef = FirebaseStorage.getInstance().getReference("ProductInfo");
@@ -216,6 +218,7 @@ public class UploadProductActivity extends AppCompatActivity {
         mCategoryList.add(new Category("Kids & Mom's"));
         mCategoryList.add(new Category("Medical Accessories"));
         mCategoryList.add(new Category("Nutrition"));
+        mCategoryList.add(new Category("Daily Drug"));
 
     }
 
@@ -240,6 +243,11 @@ public class UploadProductActivity extends AppCompatActivity {
         mSubCategoryList3.add(new SubCategory("Select Sub Category"));
         mSubCategoryList3.add(new SubCategory("Baby Milk"));
         mSubCategoryList3.add(new SubCategory("Chocolate"));
+    }
+
+    private void inItSubCategoryList4() {
+        mSubCategoryList4.add(new SubCategory("Select Sub Category"));
+        mSubCategoryList4.add(new SubCategory("Normal"));
     }
 
     private void inItView() {
@@ -307,6 +315,24 @@ public class UploadProductActivity extends AppCompatActivity {
                         });
                     } else if (categoryName.equals("Nutrition")) {
                         mSubCategoryAdapter = new SubcategoryAdapter(UploadProductActivity.this, mSubCategoryList3);
+                        subCategorySpinner.setAdapter(mSubCategoryAdapter);
+                        subCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                SubCategory clickedSubCategory = (SubCategory) parent.getItemAtPosition(position);
+
+                                subCategoryName = clickedSubCategory.getSubCategoryName();
+
+                                Toast.makeText(UploadProductActivity.this, subCategoryName + " is selected !", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    }else if (categoryName.equals("Daily Drug")) {
+                        mSubCategoryAdapter = new SubcategoryAdapter(UploadProductActivity.this, mSubCategoryList4);
                         subCategorySpinner.setAdapter(mSubCategoryAdapter);
                         subCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
