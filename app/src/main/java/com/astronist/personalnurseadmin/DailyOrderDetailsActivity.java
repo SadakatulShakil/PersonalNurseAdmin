@@ -35,6 +35,11 @@ public class DailyOrderDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         dailyOrder = (DailyOrder) intent.getSerializableExtra("dailyInfo");
         pushId = dailyOrder.getPushId();
+        if(dailyOrder.getStatus().equals("complete")){
+            completeOrder.setVisibility(View.GONE);
+        }else{
+            completeOrder.setVisibility(View.VISIBLE);
+        }
         acceptOrderRef = FirebaseDatabase.getInstance().getReference("DailyOrder");
         String uPrice = String.valueOf(dailyOrder.getTotalPrice());
         categoryTv.setText(dailyOrder.getProductCategory());

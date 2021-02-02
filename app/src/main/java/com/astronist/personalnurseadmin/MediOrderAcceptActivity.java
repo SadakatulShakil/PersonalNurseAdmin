@@ -36,6 +36,11 @@ public class MediOrderAcceptActivity extends AppCompatActivity {
         medicineOrder = (MedicineOrder) intent.getSerializableExtra("mediOrderInfo");
         userId = medicineOrder.getUserId();
         pushId = medicineOrder.getPushId();
+        if(medicineOrder.getStatus().equals("complete")){
+            completeOrder.setVisibility(View.GONE);
+        }else{
+            completeOrder.setVisibility(View.VISIBLE);
+        }
         orderDate.setText(medicineOrder.getOrderDate()+" "+medicineOrder.getOrderTime());
         medicineList.setText(medicineOrder.getMedicineList());
         customerName.setText(medicineOrder.getCustomerName());
