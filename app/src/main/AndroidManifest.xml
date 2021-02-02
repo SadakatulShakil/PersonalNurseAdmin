@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PersonalNurseAdmin">
-        <activity android:name=".MediOrderAcceptActivity"></activity>
+        <activity android:name=".DailyOrderDetailsActivity"></activity>
+        <activity android:name=".CompleteOrderActivity" />
+        <activity android:name=".DailyOrderActivity" />
+        <activity android:name=".MediOrderAcceptActivity" />
         <activity android:name=".NewMedicineOrderActivity" />
         <activity android:name=".CheckingSolvedPrescription" />
         <activity android:name=".SolvedPrescriptionActivity" />

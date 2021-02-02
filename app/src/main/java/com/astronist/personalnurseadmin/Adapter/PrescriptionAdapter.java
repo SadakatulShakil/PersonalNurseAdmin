@@ -45,7 +45,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
         holder.time.setText(uTime);
         holder.date.setText(uDate);
 
-        if(status.equals("Solved")){
+        if(prescriptionInfo.getStatus().equals("Solved")){
             ////do if solved
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,7 +56,7 @@ public class PrescriptionAdapter extends RecyclerView.Adapter<PrescriptionAdapte
                 }
             });
         }
-        if(status.equals("unsolved")){
+        if(prescriptionInfo.getStatus().equals("unsolved")){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

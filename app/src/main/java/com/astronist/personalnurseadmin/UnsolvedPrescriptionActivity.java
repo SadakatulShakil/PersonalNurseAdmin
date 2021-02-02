@@ -49,11 +49,6 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
         //userId = firebaseAuth.getCurrentUser().getUid();
         progressBar.setVisibility(View.VISIBLE);
 
-        allopathicRecyclerView.setLayoutManager(new LinearLayoutManager(UnsolvedPrescriptionActivity.this));
-        mPrescribeAdapter = new PrescriptionAdapter(mAlloInfoList, UnsolvedPrescriptionActivity.this, status);
-        allopathicRecyclerView.setAdapter(mPrescribeAdapter);
-        mPrescribeAdapter.notifyDataSetChanged();
-
         getAllopathicList();
     }
 
@@ -90,6 +85,9 @@ public class UnsolvedPrescriptionActivity extends AppCompatActivity {
 
                             }
                             progressBar.setVisibility(View.GONE);
+                            allopathicRecyclerView.setLayoutManager(new LinearLayoutManager(UnsolvedPrescriptionActivity.this));
+                            mPrescribeAdapter = new PrescriptionAdapter(mAlloInfoList, UnsolvedPrescriptionActivity.this, status);
+                            allopathicRecyclerView.setAdapter(mPrescribeAdapter);
                             mPrescribeAdapter.notifyDataSetChanged();
                         }
 

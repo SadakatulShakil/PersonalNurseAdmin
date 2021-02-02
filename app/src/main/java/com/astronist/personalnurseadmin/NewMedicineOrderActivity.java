@@ -45,6 +45,7 @@ public class NewMedicineOrderActivity extends AppCompatActivity {
     medOrderRef.addChildEventListener(new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            mMedOrderList.clear();
             for (DataSnapshot productSnap : snapshot.getChildren()) {
 
                 MedicineOrder medicineOrder = productSnap.getValue(MedicineOrder.class);

@@ -1,19 +1,30 @@
 package com.astronist.personalnurseadmin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astronist.personalnurseadmin.Model.MedicineOrder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class MediOrderAcceptActivity extends AppCompatActivity {
 
     private TextView orderDate, medicineList, customerName, customerPhone, addressLine1, addressLine2, roadNo, amountOfDay, singleDayPrice, totalPrice, paymentType;
     private ExtendedFloatingActionButton completeOrder;
     private MedicineOrder medicineOrder;
+    private String userId, pushId;
+    private DatabaseReference acceptOrderRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +34,8 @@ public class MediOrderAcceptActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         medicineOrder = (MedicineOrder) intent.getSerializableExtra("mediOrderInfo");
-
+        userId = medicineOrder.getUserId();
+        pushId = medicineOrder.getPushId();
         orderDate.setText(medicineOrder.getOrderDate()+" "+medicineOrder.getOrderTime());
         medicineList.setText(medicineOrder.getMedicineList());
         customerName.setText(medicineOrder.getCustomerName());
@@ -39,6 +51,30 @@ public class MediOrderAcceptActivity extends AppCompatActivity {
 
             paymentType.setText("Cash on delivery");
         }
+        completeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setUpMedicineOrder();
+            }
+        });
+
+    }
+
+    private void setUpMedicineOrder() {
+        acceptOrderRef = FirebaseDatabase.getInstance().getReference("Order");
+        HashMap hashMap = new HashMap();
+        hashMap.put("status", "complete");
+        acceptOrderRef.child(userId).child(pushId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    finish();
+                    Intent mediOrder = new Intent(MediOrderAcceptActivity.this, NewMedicineOrderActivity.class);
+                    startActivity(mediOrder);
+                    Toast.makeText(MediOrderAcceptActivity.this, "Data going to complete section !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void inItView() {
@@ -53,5 +89,6 @@ public class MediOrderAcceptActivity extends AppCompatActivity {
         singleDayPrice = findViewById(R.id.singlePrice);
         totalPrice = findViewById(R.id.totalPrice);
         paymentType = findViewById(R.id.paymentType);
+        completeOrder = findViewById(R.id.completeBtn);
     }
 }

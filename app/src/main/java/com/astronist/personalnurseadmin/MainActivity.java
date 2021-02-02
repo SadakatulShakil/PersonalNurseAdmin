@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar dToolbar;
     FirebaseAuth firebaseAuth;
     private ConstraintLayout uploadbtn;
-    private CardView unsolvedPresCard, solvedPresCard, medicineOrderCard;
+    private CardView unsolvedPresCard, solvedPresCard, medicineOrderCard, dailyOrder, completeOrderCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,19 +61,34 @@ public class MainActivity extends AppCompatActivity {
         solvedPresCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent inten = new Intent(MainActivity.this, SolvedPrescriptionActivity.class);
-                startActivity(inten);
+                Intent intent = new Intent(MainActivity.this, SolvedPrescriptionActivity.class);
+                startActivity(intent);
             }
         });
 
         medicineOrderCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent inten = new Intent(MainActivity.this, NewMedicineOrderActivity.class);
-                startActivity(inten);
+                Intent intent = new Intent(MainActivity.this, NewMedicineOrderActivity.class);
+                startActivity(intent);
             }
         });
 
+        dailyOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DailyOrderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        completeOrderCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent complete = new Intent(MainActivity.this, CompleteOrderActivity.class);
+                startActivity(complete);
+            }
+        });
     }
 
     private void initNavigationViewDrawer() {
@@ -130,5 +145,7 @@ public class MainActivity extends AppCompatActivity {
         unsolvedPresCard = findViewById(R.id.unsolvedPrescribeLayout);
         solvedPresCard = findViewById(R.id.solvedPrescribeLayout);
         medicineOrderCard = findViewById(R.id.newMedicineOrderLayout);
+        dailyOrder = findViewById(R.id.dailyOrderLayout);
+        completeOrderCard = findViewById(R.id.completeOrderLayout);
     }
 }

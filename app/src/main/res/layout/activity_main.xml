@@ -106,7 +106,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/newDeliveredLayout"
+                android:id="@+id/completeOrderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_margin="5dp"
@@ -172,7 +172,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/completeOrderLayout"
+                android:id="@+id/dailyOrderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_margin="5dp"
