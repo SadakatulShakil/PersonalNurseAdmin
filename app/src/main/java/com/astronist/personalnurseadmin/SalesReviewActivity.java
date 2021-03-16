@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,54 +12,43 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.astronist.personalnurseadmin.Model.PrescriptionInfo;
-import com.astronist.personalnurseadmin.Model.PriceOffer;
+import com.astronist.personalnurseadmin.Model.PrescriptionNote;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
-public class DetailsPrescription extends AppCompatActivity {
-
+public class SalesReviewActivity extends AppCompatActivity {
     private ImageView previewPrescription, mainPrescription, removeBtn;
     private LinearLayout mainLayout, mainImageLayout;
     private EditText medicineList, oneDayPrice;
     private ExtendedFloatingActionButton submitBtn, shareBtn;
-    private PrescriptionInfo prescriptionInfo;
     private String addingTime, addingDate;
-    private DatabaseReference mDatabaseRef;
-    private DatabaseReference mUpdateRef;
+    private DatabaseReference mReviewRef;
+    private DatabaseReference mRemoveNoteRef;
     private String pushId,userId;
+    private PrescriptionNote prescriptionNote;
     public static final String TAG = "detailsPrescription";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details_prescription);
+        setContentView(R.layout.activity_sales_review);
         inItView();
-
         Intent intent = getIntent();
-        prescriptionInfo = (PrescriptionInfo) intent.getSerializableExtra("prescription_info");
-        pushId = prescriptionInfo.getPushId();
-        userId = prescriptionInfo.getUserId();
-
-
-        Picasso.get().load(prescriptionInfo.getPrescriptionUrl()).into(previewPrescription);
-        Picasso.get().load(prescriptionInfo.getPrescriptionUrl()).into(mainPrescription);
-
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("OfferedPrice");
-        mUpdateRef = FirebaseDatabase.getInstance().getReference("PrescriptionInfo");
+        prescriptionNote = (PrescriptionNote) intent.getSerializableExtra("noteDetails");
+        pushId = prescriptionNote.getUploadId();
+        userId = prescriptionNote.getSalesId();
+        Picasso.get().load(prescriptionNote.getPrescriptionImage()).into(previewPrescription);
+        Picasso.get().load(prescriptionNote.getPrescriptionImage()).into(mainPrescription);
+        mReviewRef = FirebaseDatabase.getInstance().getReference("SalesReview");
+        mRemoveNoteRef = FirebaseDatabase.getInstance().getReference("PresNotification");
 
         previewPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,80 +72,66 @@ public class DetailsPrescription extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storePriceList();
-                removeFromUnsolved();
-            }
-        });
-        shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent shareIntent =  new Intent(DetailsPrescription.this, SharePrescriptionActivity.class);
-                shareIntent.putExtra("prescription", prescriptionInfo);
-                startActivity(shareIntent);
+                storeSalesPriceList(userId);
+                removeFromNotification(pushId);
             }
         });
     }
 
-    private void removeFromUnsolved() {
-        HashMap hashMap = new HashMap();
-        hashMap.put("status", "Solved");
-       mUpdateRef.child(userId).child(pushId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-           @Override
-           public void onComplete(@NonNull Task<Void> task) {
-            if(task.isSuccessful()){
-                Toast.makeText(DetailsPrescription.this, "Data going to solved section !", Toast.LENGTH_SHORT).show();
-            }
-           }
-       });
-
-    }
-
-    private void storePriceList() {
-
+    private void storeSalesPriceList(String userId) {
         String uMedicine = medicineList.getText().toString().trim();
         String uOneDayPrice = oneDayPrice.getText().toString().trim();
-        int oneWeak = (Integer.parseInt(uOneDayPrice)) * 7;
-        int fifteen = (Integer.parseInt(uOneDayPrice)) * 15;
-        int oneMonth = (Integer.parseInt(uOneDayPrice)) * 30;
-        String uOneWeakPrice = String.valueOf(oneWeak);
-        String uFifteenDaysPrice = String.valueOf(fifteen);
-        String uOneMonthPrice = String.valueOf(oneMonth);
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat myTimeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
         addingTime = myTimeFormat.format(calendar.getTime());
         SimpleDateFormat myDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         addingDate = myDateFormat.format(calendar.getTime());
-
-        finalStep(prescriptionInfo.getUserId(), uMedicine, uOneDayPrice, uOneWeakPrice, uFifteenDaysPrice, uOneMonthPrice, addingTime, addingDate);
-
+        String dateTime = addingDate +" : "+ addingTime;
+        finalStep(uMedicine, userId, uOneDayPrice, dateTime, prescriptionNote.getPrescriptionImage());
     }
 
-    private void finalStep(final String userId, final String uMedicine, final String uOneDayPrice, final String uOneWeakPrice,
-                           final String uFifteenDaysPrice, final String uOneMonthPrice, final String addingTime, final String addingDate) {
+    private void finalStep(final String uMedicine, String userId, final String uOneDayPrice, final String dateTime, final String prescriptionImage) {
 
-        PriceOffer priceOffer = new PriceOffer(userId, pushId, uMedicine, uOneDayPrice, uOneWeakPrice, uFifteenDaysPrice, uOneMonthPrice, addingDate, addingTime);
-        mDatabaseRef.child(pushId).setValue(priceOffer).addOnCompleteListener(new OnCompleteListener<Void>() {
+        String uploadId = mReviewRef.push().getKey();
+        PrescriptionNote prescriptionNote = new PrescriptionNote(uploadId, userId, prescriptionImage, dateTime, uMedicine, uOneDayPrice);
+
+        mReviewRef.child(uploadId).setValue(prescriptionNote).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
+                if(task.isSuccessful()){
                     finish();
-                    Toast.makeText(DetailsPrescription.this, "Info Upload Successful!", Toast.LENGTH_SHORT).show();
-                    Intent infoProduct = new Intent(DetailsPrescription.this, MainActivity.class);
+                    Toast.makeText(SalesReviewActivity.this, "Info Upload Successful!", Toast.LENGTH_SHORT).show();
+                    Intent infoProduct = new Intent(SalesReviewActivity.this, MainActivity.class);
                     startActivity(infoProduct);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: " + e.getMessage());
+                Toast.makeText(SalesReviewActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void removeFromNotification(String pushId) {
+    mRemoveNoteRef.child(pushId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+            if(task.isSuccessful()){
+                Toast.makeText(SalesReviewActivity.this, "Notification reviewed !", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            Toast.makeText(SalesReviewActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+    });
     }
 
     private void inItView() {
-
         previewPrescription = findViewById(R.id.previewImage);
         mainPrescription = findViewById(R.id.fullImage);
         mainLayout = findViewById(R.id.mainLay);

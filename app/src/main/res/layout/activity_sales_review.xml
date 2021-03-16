@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsPrescription">
+    tools:context=".SalesReviewActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -70,7 +70,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ListOut:"
+                    android:text="ListOut individual price:"
                     android:layout_margin="5dp"
                     android:textColor="@color/black"/>
 
@@ -89,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="One day amount:"
+                    android:text="One day total amount:"
                     android:layout_margin="5dp"
                     android:textColor="@color/black"/>
 
@@ -117,32 +117,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true">
 
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/submitBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="16dp"
             android:backgroundTint="@color/color_primary"
             android:gravity="center"
             android:text="Submit"
-            android:textAllCaps="false" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/shareBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:text="Share"
             android:textAllCaps="false" />
 
     </LinearLayout>
@@ -174,7 +160,5 @@
             tools:src="@drawable/ic_add_a_photo" />
 
     </LinearLayout>
-
-
 
 </RelativeLayout>

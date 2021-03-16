@@ -91,7 +91,7 @@ public class CompleteOrderActivity extends AppCompatActivity {
                 for (DataSnapshot productSnap : snapshot.getChildren()) {
 
                     DailyOrder dailyOrder = productSnap.getValue(DailyOrder.class);
-                    if(dailyOrder.getStatus().equals("pending")){
+                    if(dailyOrder.getStatus().equals("complete")){
 
                         dailyOrderArrayList.add(dailyOrder);
                     }

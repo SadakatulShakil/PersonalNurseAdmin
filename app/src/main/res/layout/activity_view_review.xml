@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsPrescription">
+    tools:context=".ViewReviewActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,6 +12,9 @@
         android:layout_height="wrap_content"
         android:background="@color/color_primary"
         android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/white">
 
         <TextView
@@ -19,9 +22,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/bangla_regular"
             android:gravity="center"
-            android:text="Details"
+            android:text="Reviews"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
+
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -31,7 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/submitBtn"
         android:orientation="vertical">
 
         <ScrollView
@@ -70,17 +73,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ListOut:"
+                    android:text="ListOut individual price:"
                     android:layout_margin="5dp"
                     android:textColor="@color/black"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/medicineList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/border_round"
-                    android:hint="Ex.\n1.Napa extra-1piece-2 taka-(3*2) = 6 taka\n2.Peracitamal extra-1piece-2 taka-(2*2) = 4 taka"
+                    android:text="\n"
                     android:inputType="textMultiLine|textLongMessage"
                     android:padding="5dp"
                     android:singleLine="true"
@@ -89,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="One day amount:"
+                    android:text="One day total amount:"
                     android:layout_margin="5dp"
                     android:textColor="@color/black"/>
 
@@ -100,7 +103,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
-                    android:hint="ex. ৳ 999"
+                    tools:text="ex. ৳ 999"
                     android:background="@drawable/border_round"
                     android:padding="5dp"
                     android:singleLine="true"
@@ -109,41 +112,6 @@
             </LinearLayout>
 
         </ScrollView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/orderAndCart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="8dp"
-        android:layout_alignParentBottom="true">
-
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/submitBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="5dp"
-            android:backgroundTint="@color/color_primary"
-            android:gravity="center"
-            android:text="Submit"
-            android:textAllCaps="false" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/shareBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:text="Share"
-            android:textAllCaps="false" />
 
     </LinearLayout>
 
@@ -174,7 +142,5 @@
             tools:src="@drawable/ic_add_a_photo" />
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
