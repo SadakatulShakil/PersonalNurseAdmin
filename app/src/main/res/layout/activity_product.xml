@@ -28,43 +28,75 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/filter"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/searchViewLay"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Filter"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:drawableRight="@drawable/ic_filter"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-    <Spinner
-        android:id="@+id/categorySpinner"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="8dp"
-        android:overlapAnchor="false"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter"
-        tools:ignore="HardcodedText"
-        tools:targetApi="LOLLIPOP" />
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/border_round"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    <Spinner
-        android:id="@+id/subCategorySpinner"
+        <EditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="search by name"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/search"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/cancelSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:drawableLeft="@drawable/ic_cancel"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_toEndOf="@+id/searchView" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filterLay"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="8dp"
-        android:overlapAnchor="false"
-        android:spinnerMode="dropdown"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner"
-        tools:ignore="HardcodedText"
-        tools:targetApi="LOLLIPOP" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewLay">
+
+        <TextView
+            android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/ic_filter"
+            android:text="Filter"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown"
+            tools:ignore="HardcodedText"
+            tools:targetApi="LOLLIPOP" />
+
+    </LinearLayout>
 
     <View
         android:id="@+id/view"
@@ -82,7 +114,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/filterLay"
         tools:listitem="@layout/product_list"
         tools:itemCount="5"/>
 

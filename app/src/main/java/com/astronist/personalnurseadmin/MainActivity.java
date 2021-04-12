@@ -627,6 +627,13 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "About Under Construction be Patient!", Toast.LENGTH_LONG).show();
                         break;
 
+                    case R.id.slider:
+                        Intent intent3 = new Intent(MainActivity.this, SliderReviewActivity.class);
+                        startActivity(intent3);
+                        //Toast.makeText(MainActivity.this, "About Under Construction be Patient!", Toast.LENGTH_LONG).show();
+                        break;
+
+
                     case R.id.logOut:
                         firebaseAuth.signOut();
                         finish();
