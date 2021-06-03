@@ -1,6 +1,9 @@
 package com.astronist.personalnurseadmin.Model;
 
-public class ProductInfo {
+import java.io.Serializable;
+
+public class ProductInfo implements Serializable {
+    private String uploadKey;
     private String title;
     private String category;
     private String subCategory;
@@ -17,10 +20,11 @@ public class ProductInfo {
     public ProductInfo() {
     }
 
-    public ProductInfo(String title, String category, String subCategory,
-                       String imageUrl, String description, int stockAvailable,
-                       double regularPrice, double sellingPrice, int discountPercentage,
-                       double actualSellingPrice, String createdDate, String createTime) {
+    public ProductInfo(String uploadKey, String title, String category, String subCategory,
+                       String imageUrl, String description, int stockAvailable, double regularPrice,
+                       double sellingPrice, int discountPercentage, double actualSellingPrice,
+                       String createdDate, String createTime) {
+        this.uploadKey = uploadKey;
         this.title = title;
         this.category = category;
         this.subCategory = subCategory;
@@ -129,5 +133,32 @@ public class ProductInfo {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getUploadKey() {
+        return uploadKey;
+    }
+
+    public void setUploadKey(String uploadKey) {
+        this.uploadKey = uploadKey;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductInfo{" +
+                "uploadKey='" + uploadKey + '\'' +
+                ", title='" + title + '\'' +
+                ", category='" + category + '\'' +
+                ", subCategory='" + subCategory + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", stockAvailable=" + stockAvailable +
+                ", regularPrice=" + regularPrice +
+                ", sellingPrice=" + sellingPrice +
+                ", discountPercentage=" + discountPercentage +
+                ", actualSellingPrice=" + actualSellingPrice +
+                ", createdDate='" + createdDate + '\'' +
+                ", createTime='" + createTime + '\'' +
+                '}';
     }
 }

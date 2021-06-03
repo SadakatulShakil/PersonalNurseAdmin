@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PersonalNurseAdmin">
-        <activity android:name=".SliderUpdateActivity"></activity>
+        <activity android:name=".EditProductActivity"></activity>
+        <activity android:name=".ProductDetailsActivity" />
+        <activity android:name=".SliderUpdateActivity" />
         <activity android:name=".SliderReviewActivity" />
         <activity android:name=".SalesReportActivity" />
         <activity android:name=".ViewReviewActivity" />

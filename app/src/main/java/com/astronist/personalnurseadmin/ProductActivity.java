@@ -70,6 +70,7 @@ public class ProductActivity extends AppCompatActivity {
                 if (searchText.isEmpty()) {
                     cancelSearch.setVisibility(View.GONE);
                 }else {
+                    searchText = searchText.substring(0,1).toUpperCase() + searchText.substring(1).toLowerCase();
                     searchByProductName(searchText);
                     cancelSearch.setVisibility(View.VISIBLE);
                     cancelSearch.setOnClickListener(new View.OnClickListener() {

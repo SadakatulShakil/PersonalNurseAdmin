@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.astronist.personalnurseadmin.Model.ProductInfo;
 import com.astronist.personalnurseadmin.ProductActivity;
+import com.astronist.personalnurseadmin.ProductDetailsActivity;
 import com.astronist.personalnurseadmin.R;
 import com.squareup.picasso.Picasso;
 
@@ -53,10 +54,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.viewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent product = new Intent(context, ProductActivity.class);
+                Intent product = new Intent(context, ProductDetailsActivity.class);
+                product.putExtra("productData", productInfo);
                 context.startActivity(product);
-                //((Activity)context).finish();*/
-                Toast.makeText(context, "Please keep patient!", Toast.LENGTH_SHORT).show();
+
+                //((Activity)context).finish();
+                //Toast.makeText(context, "Please keep patient!", Toast.LENGTH_SHORT).show();
             }
         });
     }
